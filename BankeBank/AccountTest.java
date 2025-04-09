@@ -33,73 +33,76 @@ public class AccountTest {
     }
     @Test
     public void testForDepositForAccount1(){
-        assertEquals(200.0,account1.getDeposit(200.0), 0.0);
+        account1.deposit(200.0);
+        assertEquals(200.0,account1.balance(), 0.0);
     }
 
     @Test
     public void testForDepositForAccount2(){
-        assertEquals(200.0,account2.getDeposit( 200.0), 0.0);
+        account2.deposit(200.0);
+        assertEquals(200.0,account2.balance(), 0.0);
+
 
     }
 
     @Test
     public void testForWithdrawForAccount1(){
-        account1.getBalance();
-        account1.getDeposit(400.0);
-        assertEquals(200.0, account1.getWithdraw("1234", 200.0), 0.0);
+        account1.balance();
+        account1.deposit(400.0);
+        assertEquals(200.0, account1.withdraw("1234", 200.0), 0.0);
     }
 
     @Test
     public void testForWithdrawForAccount2(){
-        account2.getBalance();
-        account2.getDeposit(400.0);
-        assertEquals(200.0, account2.getWithdraw("2299", 200.0), 0.0);
+        account2.balance();
+        account2.deposit(400.0);
+        assertEquals(200.0, account2.withdraw("2299", 200.0), 0.0);
     }
     @Test
     public void testSuccessfulTransferBetweenAccounts() {
-        account1.getDeposit( 1000.0);
-        account2.getDeposit( 500.0);
+        account1.deposit( 1000.0);
+        account2.deposit( 500.0);
 
         account1.transfer("1234", account2, 300.0);
 
-        assertEquals(700.0, account1.getBalance(), 0.0);
-        assertEquals(800.0, account2.getBalance(), 0.0);
+        assertEquals(700.0, account1.balance(), 0.0);
+        assertEquals(800.0, account2.balance(), 0.0);
     }
 
     @Test
     public void testInsufficientFundsForTransfer() {
-        account1.getDeposit(200.0);
+        account1.deposit(200.0);
         assertThrows(IllegalArgumentException.class, () -> account1.transfer("1234", account2, 500.0));
     }
 
     @Test
     public void testInvalidPINForTransfer() {
-        account1.getDeposit(500.0);
+        account1.deposit(500.0);
         assertThrows(IllegalArgumentException.class, () -> account1.transfer("0000", account2, 200.0));
     }
     @Test
     public void testCheckBalanceForAccount1() {
-        account1.getDeposit(500.0);
-        assertEquals(500.0, account1.getBalance(), 0.0);
+        account1.deposit(500.0);
+        assertEquals(500.0, account1.balance(), 0.0);
     }
 
     @Test
     public void testCheckBalanceForAccount2() {
-        account2.getDeposit(300.0);
-        assertEquals(300.0, account2.getBalance(), 0.0);
+        account2.deposit(300.0);
+        assertEquals(300.0, account2.balance(), 0.0);
     }
 
     @Test
     public void testInvalidPINForBalanceCheck() {
-        account1.getDeposit(400.0);
-        assertThrows(IllegalArgumentException.class, () -> account1.getBalance());
+        account1.deposit(400.0);
+        assertThrows(IllegalArgumentException.class, () -> account1.balance());
     }
 
     @Test
     public void testCloseAccountSuccessfully() {
         account1.closeAccount("1234");
 
-        assertEquals(0.0, account1.getBalance(), 0.001);
+        assertEquals(0.0, account1.balance(), 0.001);
         assertNull(account1.getAccountNumber());
     }
 

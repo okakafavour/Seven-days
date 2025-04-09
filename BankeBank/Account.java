@@ -32,15 +32,14 @@ public class Account {
         return this.accountNumber;
     }
 
-    public double getDeposit(double amount) {
+    public void deposit(double amount) {
         if (amount <= 0.0) {
             throw new IllegalArgumentException("Deposit amount must be greater than zero");
         }
-        return this.balance += amount;
-
+        this.balance += amount;
     }
 
-    public double getWithdraw(String pin, double amount) {
+    public double withdraw(String pin, double amount) {
         if (!pin.equals(this.pin)) {
             throw new IllegalArgumentException("Invalid PIN");
         }
@@ -52,7 +51,7 @@ public class Account {
         return this.balance;
     }
 
-    public double getBalance() {
+    public double balance() {
         return this.balance;
     }
 
@@ -68,8 +67,8 @@ public class Account {
             throw new IllegalArgumentException("Insufficient balance");
         }
 
-        this.getWithdraw(pin, amount);
-        receiver.getDeposit(amount);
+        this.withdraw(pin, amount);
+        receiver.deposit(amount);
     }
 
     public void closeAccount(String pin) {

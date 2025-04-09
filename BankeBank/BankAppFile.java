@@ -8,19 +8,19 @@ public class BankAppFile {
     private final ArrayList<Account> accounts = new ArrayList<>();
 
     public String createAccount(String firstName, String lastName, String pin){
-        if(!firstName.matches("[A-Z][a-zA-Z]*")){
+        if(!firstName.matches("[a-zA-Z]*")){
             throw new IllegalArgumentException("Invalid first name");
         }
-        if(!lastName.matches("[A-Z][a-zA-Z]*")){
+        if(!lastName.matches("[a-zA-Z]*")){
             throw new IllegalArgumentException("Invalid last name");
         }
-        if(!pin.matches("[0-9]*")){
+        if(!pin.matches("[0-9]{4}")){
             throw new IllegalArgumentException("Invalid pin");
         }
 
 
         Random random = new Random();
-        String accountNumbers = "074" + String.format("%7d", random.nextInt(1000000000));
+        String accountNumbers = "074" + String.format("%07d", random.nextInt(10000000));
         Account account = new Account(firstName, lastName, accountNumbers, pin);
         accounts.add(account);
         return accountNumbers;
@@ -51,7 +51,7 @@ public class BankAppFile {
     public double getBalance(String accountNumber, String pin) {
         for (Account account : accounts) {
             if (account.getAccountNumber().equals(accountNumber) && account.getPin().equals(pin)) {
-                return account.getBalance();
+                return account.balance();
             }
         }
         throw new IllegalArgumentException("No account found!");
@@ -60,7 +60,7 @@ public class BankAppFile {
     public void getDeposit(String accountNumber, String pin, double amount) {
         for (Account account : accounts) {
             if (account.getAccountNumber().equals(accountNumber) && account.getPin().equals(pin)) {
-                account.getDeposit(amount);
+                account.deposit(amount);
                 return;
             }
         }
@@ -70,11 +70,29 @@ public class BankAppFile {
     public void getWithdraw(String accountNumber, String pin, double amount) {
         for(Account account : accounts){
             if (account.getAccountNumber().equals(accountNumber) && account.getPin().equals(pin)) {
-                account.getWithdraw(pin, amount);
+                account.withdraw(pin, amount);
                 return;
             }
         }
         throw new IllegalArgumentException("No account found or incorrect PIN!");
+    }
+
+    public void getTransfer(String senderAccountNumber, String senderPin, String receiverAccountNumber, double amount) {
+        Account sender = findAccountByNumber(senderAccountNumber);
+        Account receiver = findAccountByNumber(receiverAccountNumber);
+
+        if (sender == null || receiver == null) {
+            throw new IllegalArgumentException("Invalid account number!");
+        }
+        if (!sender.getPin().equals(senderPin)) {
+            throw new IllegalArgumentException("Incorrect PIN!");
+        }
+        if (amount <= 0 || sender.balance() < amount) {
+            throw new IllegalArgumentException("Insufficient funds!");
+        }
+
+        sender.withdraw(senderPin, amount);
+        receiver.deposit(amount);
     }
 
 
