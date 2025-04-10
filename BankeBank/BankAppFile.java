@@ -106,4 +106,24 @@ public class BankAppFile {
         return accountNumber;
     }
 
+
+    public void getCloseAccount(String accountNumber, String closePin) {
+        Account accountToClose = null;
+
+        for (Account acc : accounts) {
+            if (acc.getAccountNumber().equals(accountNumber) && acc.getPin().equals(closePin)) {
+                    accountToClose = acc;
+                    break;
+                }
+        }
+
+        if (accountToClose == null) {
+                System.out.println("Error: Invalid account number or PIN.");
+                return;
+        }
+            accounts.remove(accountToClose);
+            System.out.println("Account successfully closed.");
+    }
+
+
 }

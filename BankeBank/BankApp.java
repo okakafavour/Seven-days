@@ -290,10 +290,21 @@ public class BankApp {
                             System.out.println("Invalid pin. It must be exactly 4 digits.");
                         }
                         if (!closePin.matches("\\d{4}")) {
-                            System.out.print
+                            System.out.println("Invalid pin. It must be exactly 4 digits.");
                         }
-                    }
-                    
+
+                    } while(closeAccount == null);
+                    accounts.remove(closeAccount);
+                    main.getCloseAccount(closeAccount.getAccountNumber(), closePin);
+
+                case 8:
+                    System.out.print("Exiting program... ");
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("Invalid input. Please try again.");
+                    break;
 
             }
         }
