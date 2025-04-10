@@ -19,6 +19,7 @@ public class BankApp {
                     5. Transfer from one account to another.
                     6. Change pin.
                     7. Close account.
+                    8. Exit.
                     """);
 
             System.out.println("Enter your choice: ");
@@ -155,8 +156,6 @@ public class BankApp {
 
                         if (targetAccount == null) {
                             System.out.println("Account not found!");
-                        } else {
-                            System.out.println("Your balance is: " + main.getBalance(targetAccount.getAccountNumber(), targetAccount.getPin()));
                         }
 
                         if (!balancePin.matches("\\d{4}") || !balancePin.equals(account.getPin())) {
@@ -237,7 +236,7 @@ public class BankApp {
                                  System.out.println("Invalid account number.");
                              }
                          }
-                          
+
                            Account exactAccount = null;
                          for(Account acc : accounts){
                              if(acc.getAccountNumber().equals(accountNumber)){
@@ -245,40 +244,55 @@ public class BankApp {
                                  break;
                              }
                          }
-                    }
 
-                    while(!acc.getAccountNumber.equals(accountNumber));
-                        System.out.print("Enter account number");
-                        accountNumber = input.nextLine();
-                        
-                        for (Account acc : accounts) {
-                            if (!acc.getAccountNumber().equals(accountNumber)){
-                               System.out.println("Invalid account number"); 
+                         do{
+                             System.out.print("Enter old pin: ");
+                             oldPin  = input.nextLine();
+
+                             if(!oldPin.equals(exactAccount.getPin()) || (!oldPin.matches("\\d{4}"))){
+                                 System.out.println("Invalid pin.");
+                             }
+                         } while(!oldPin.equals(exactAccount.getPin()) || !oldPin.matches("\\d{4}"));
+
+
+                        do{
+                            System.out.print("Enter new pin: ");
+                            newPin = input.nextLine();
+
+                            if(newPin.equals(oldPin) || !newPin.matches("\\d{4}")) {
+                                System.out.println("Invalid pin. It must be exactly 4 digits.");
                             }
-                            break;
-                        }        
-                    }
-                    
-                    do {
-                        System.out.print("Enter old pin: ");
-                         oldPin = input.nextLine();
+                        }  while (newPin.equals(oldPin) || !newPin.matches("\\d{4}"));
 
-                        if ((!oldPin.equals(pin)) || oldPin.matches("\\d{4}")) {
-                            System.out.println("Invalid pin. It must be exactly 4 digits.");
-                        }
-                    } while ((!oldPin.equals(pin)) || oldPin.matches("\\d{4}"));
+                        main.getChangePin(accountNumber, newPin, oldPin);
+
+                        exactAccount.setPin(newPin);
+                        System.out.println("Change Pin Success");
+                        break;
+                    }
+
+
+                case 7:
+                    String closePin;
+                    Account closeAccount = null;
                     
                     do{
-                        System.out.print("Enter new pin: ");
-                        newPin = input.nextLine();
-                        
-                        if(newPin.equals(oldPin) || newPin.matches("\\d{4}")) {
+                        System.out.print("Enter pin to close account: ");
+                        closePin = input.nextLine();
+
+                        for(Account acc : accounts){
+                            if(acc.getPin().equals(closePin)){
+                                closeAccount = acc;
+                                break;
+                            }
+                        }
+                        if(closeAccount == null){
                             System.out.println("Invalid pin. It must be exactly 4 digits.");
                         }
-                    }  while (newPin.equals(oldPin) || newPin.matches("\\d{4}"));
-                        main.getChangePin(accountNumber, newPin, oldPin);
-                    
-                    
+                        if (!closePin.matches("\\d{4}")) {
+                            System.out.print
+                        }
+                    }
                     
 
             }

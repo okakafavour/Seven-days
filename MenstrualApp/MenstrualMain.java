@@ -9,7 +9,7 @@ public class MenstrualMain {
 
         System.out.println("===== Welcome to Bokku Menstrual App =====");
 
-        LocalDate startdate == null;
+        LocalDate startdate = null;
         while(startdate == null){
             System.out.print("Enter start date of your last period: ");
             String startDateInput = input.nextLine();

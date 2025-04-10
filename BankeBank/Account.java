@@ -39,6 +39,13 @@ public class Account {
         this.balance += amount;
     }
 
+    public void  setPin(String newPin) {
+        if(newPin == null || newPin.isEmpty() || !newPin.matches("\\d{4}")){
+            throw new IllegalArgumentException("Pin must contain digits");
+        }
+        this.pin = newPin;
+    }
+
     public double withdraw(String pin, double amount) {
         if (!pin.equals(this.pin)) {
             throw new IllegalArgumentException("Invalid PIN");
