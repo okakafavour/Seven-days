@@ -217,6 +217,46 @@ public class BankApp {
                     main.getTransfer(senderAccountNumber, senderPin, receiverAccountNumber, amount);
                     System.out.println("Transfer Success");
                     break;
+
+
+                case 6:
+                    String pin="";
+                    String oldPin,newPin, accountNumber = "";
+
+                    while(!acc.getAccountNumber.equals(accountNumber));
+                        System.out.print("Enter account number");
+                        accountNumber = input.nextLine();
+                        
+                        for (Account acc : accounts) {
+                            if (!acc.getAccountNumber().equals(accountNumber)){
+                               System.out.println("Invalid account number"); 
+                            }
+                            break;
+                        }        
+                    }
+                    
+                    do {
+                        System.out.print("Enter old pin: ");
+                         oldPin = input.nextLine();
+
+                        if ((!oldPin.equals(pin)) || oldPin.matches("\\d{4}")) {
+                            System.out.println("Invalid pin. It must be exactly 4 digits.");
+                        }
+                    } while ((!oldPin.equals(pin)) || oldPin.matches("\\d{4}"));
+                    
+                    do{
+                        System.out.print("Enter new pin: ");
+                        newPin = input.nextLine();
+                        
+                        if(newPin.equals(oldPin) || newPin.matches("\\d{4}")) {
+                            System.out.println("Invalid pin. It must be exactly 4 digits.");
+                        }
+                    }  while (newPin.equals(oldPin) || newPin.matches("\\d{4}"));
+                        main.getChangePin(accountNumber, newPin, oldPin);
+                    
+                    
+                    
+
             }
         }
     }

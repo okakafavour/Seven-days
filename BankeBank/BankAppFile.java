@@ -95,5 +95,15 @@ public class BankAppFile {
         receiver.deposit(amount);
     }
 
+    public String getChangePin(String accountNumber, String newPin, String oldPin) {
+        for (Account account : accounts) {
+            if((account.getAccountNumber().equals(accountNumber) && account.getPin().equals(oldPin))){
+                oldPin.equals(newPin);
+                return newPin;
+            }
+            throw new IllegalArgumentException("Invalid accounts");
+        }
+        return accountNumber;
+    }
 
 }
