@@ -11,7 +11,7 @@ public class MenstrualMain {
 
         LocalDate startdate = null;
         while(startdate == null){
-            System.out.print("Enter start date of your last period: ");
+            System.out.print("Enter start date of your last period (dd/mm/yyyy): ");
             String startDateInput = input.nextLine();
 
             try{
@@ -23,7 +23,7 @@ public class MenstrualMain {
 
         LocalDate endDate = null;
         while(endDate == null){
-            System.out.print("Enter end date of your last period: ");
+            System.out.print("Enter end date of your last period (dd/mm/yyyy): ");
             String endDateInput = input.nextLine();
 
             try {
@@ -41,8 +41,9 @@ public class MenstrualMain {
         while(cycle <= 0){
             System.out.print("Enter your cycle length (in days): ");
             try {
-                int cycleLength = input.nextInt();
-                 if(cycleLength <= 0){
+                 cycle = Integer.parseInt(input.nextLine().trim());
+
+                if(cycle <= 0){
                      System.out.println("Number must be greather than zero");
                  }
             } catch (Exception e){
