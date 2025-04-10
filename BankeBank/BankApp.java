@@ -220,8 +220,32 @@ public class BankApp {
 
 
                 case 6:
-                    String pin="";
-                    String oldPin,newPin, accountNumber = "";
+                    String accountNumber = " ";
+                    String oldPin, newPin;
+
+                    boolean accountNumberExists = false;
+                    while(!accountNumberExists){
+
+                        System.out.print("Enter your account number: ");
+                         accountNumber= input.nextLine();
+
+                         for(Account acc : accounts){
+                             if (acc.getAccountNumber().equals(accountNumber)) {
+                                 accountNumberExists = true;
+                                 break;
+                             } else if(!accountNumberExists){
+                                 System.out.println("Invalid account number.");
+                             }
+                         }
+                          
+                           Account exactAccount = null;
+                         for(Account acc : accounts){
+                             if(acc.getAccountNumber().equals(accountNumber)){
+                                 exactAccount = acc;
+                                 break;
+                             }
+                         }
+                    }
 
                     while(!acc.getAccountNumber.equals(accountNumber));
                         System.out.print("Enter account number");
